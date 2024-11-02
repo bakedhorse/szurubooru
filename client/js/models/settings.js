@@ -14,10 +14,10 @@ const defaultSettings = {
     transparencyGrid: true,
     fitMode: "fit-both",
     tagSuggestions: true,
-    autoplayVideos: false,
-    postsPerPage: 42,
+    autoplayVideos: true,
+    postsPerPage: 100,
     tagUnderscoresAsSpaces: false,
-    darkTheme: false,
+    darkTheme: true,
     postFlow: false,
 };
 
