@@ -39,10 +39,19 @@ services:
       - "${PORT}:80"
 
   sql:
-    image: postgres:11-alpine
+    image: postgres:17-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER:
       POSTGRES_PASSWORD:
     volumes:
       - "${MOUNT_SQL}:/var/lib/postgresql/data"
+
+  #sql-pgupgrade:
+  #  image: pgautoupgrade/pgautoupgrade:17-alpine
+  #  restart: unless-stopped
+  #  environment:
+  #    POSTGRES_USER:
+  #    POSTGRES_PASSWORD:
+  #  volumes:
+  #    - "${MOUNT_SQL}:/var/lib/postgresql/data"
