@@ -31,6 +31,7 @@ class PostMainController extends BasePostController {
                 ctx.parameters.id,
                 parameters ? parameters.query : null
             ),
+            poolPostsAround
         ]).then(
             (responses) => {
                 const [post, aroundResponse, poolPostsAroundResponse] = responses;
