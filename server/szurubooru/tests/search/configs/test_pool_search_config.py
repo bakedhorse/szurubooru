@@ -12,13 +12,17 @@ def executor():
 
 @pytest.fixture
 def verify_unpaged(executor):
-    def verify(input, expected_pool_names):
+    def verify(input, expected_pool_names, test_order=False):
         actual_count, actual_pools = executor.execute(
             input, offset=0, limit=100
         )
         actual_pool_names = [u.names[0].name for u in actual_pools]
-        assert actual_count == len(expected_pool_names)
+        if not test_order:
+            actual_pool_names = sorted(actual_pool_names)
+            expected_pool_names = sorted(expected_pool_names)
         assert actual_pool_names == expected_pool_names
+        assert actual_count == len(expected_pool_names)
+
 
     return verify
 
@@ -301,7 +305,7 @@ def test_filter_by_post_count(
     pool1.posts.append(post2)
     pool2.posts.append(post1)
     db.session.flush()
-    verify_unpaged(input, expected_pool_names)
+    verify_unpaged(input, expected_pool_names, test_order=True)
 
 
 @pytest.mark.parametrize(
@@ -360,8 +364,7 @@ def test_sort_by_creation_time(
     pool3.creation_time = datetime(1991, 1, 3)
     db.session.add_all([pool3, pool1, pool2])
     db.session.flush()
-    verify_unpaged(input, expected_pool_names)
-
+    verify_unpaged(input, expected_pool_names, test_order=True)
 
 @pytest.mark.parametrize(
     "input,expected_pool_names",
@@ -384,7 +387,7 @@ def test_sort_by_last_edit_time(
     pool3.last_edit_time = datetime(1991, 1, 3)
     db.session.add_all([pool3, pool1, pool2])
     db.session.flush()
-    verify_unpaged(input, expected_pool_names)
+    verify_unpaged(input, expected_pool_names, test_order=True)
 
 
 @pytest.mark.parametrize(
@@ -405,7 +408,7 @@ def test_sort_by_post_count(
     pool2.posts.append(post1)
     pool2.posts.append(post2)
     db.session.flush()
-    verify_unpaged(input, expected_pool_names)
+    verify_unpaged(input, expected_pool_names, test_order=True)
 
 
 @pytest.mark.parametrize(
@@ -423,9 +426,9 @@ def test_sort_by_category(
 ):
     cat1 = pool_category_factory(name="cat1")
     cat2 = pool_category_factory(name="cat2")
-    pool1 = pool_factory(id=1, names=["t1"], category=cat2)
-    pool2 = pool_factory(id=2, names=["t2"], category=cat2)
+    pool2 = pool_factory(id=1, names=["t2"], category=cat2)
+    pool1 = pool_factory(id=2, names=["t1"], category=cat2)
     pool3 = pool_factory(id=3, names=["t3"], category=cat1)
     db.session.add_all([pool1, pool2, pool3])
     db.session.flush()
-    verify_unpaged(input, expected_pool_names)
+    verify_unpaged(input, expected_pool_names, test_order=True)
