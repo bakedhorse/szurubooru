@@ -2,38 +2,41 @@
 
 .pool-navigator-container
     padding: 0
-    margin: 0 auto
+    margin-bottom: 0.5em
 
     .pool-info-wrapper
+        margin-bottom: 0px
         box-sizing: border-box
         width: 100%
-        margin: 0 0 1em 0
         display: flex
         padding: 0.5em 1em
-        border: 1px solid $pool-navigator-border-color
-        background: $pool-navigator-background-color
+        border: none
+        background: $top-navigation-color
         &.active
-            font-weight: bold
-            font-size: 1.10em;
-            padding: 0.58em 1em
+            .pool-name
+                font-weight: bold
+                font-size: 1.10em
 
         .pool-name
-            flex: 1 1;
-            text-align: center;
-            overflow: hidden;
-            white-space: nowrap;
-            -o-text-overflow: ellipsis;
-            text-overflow: ellipsis;
+            flex: 1 1
+            text-align: center
+            overflow: hidden
+            white-space: nowrap
+            -o-text-overflow: ellipsis
+            text-overflow: ellipsis
+
+        .pool-test
+            color: $main-color
 
         .first, .last
-            flex-basis: 1em;
+            flex-basis: 1em
 
         .first, .prev, .next, .last
-            flex: 0 1;
-            margin: 0 .25em;
-            white-space: nowrap;
+            flex: 0 1
+            margin: 0 .25em
+            white-space: nowrap
 
 
 .darktheme .pool-navigator-container
     .pool-info-wrapper
-        background: $pool-navigator-background-color-darktheme
+        background: $top-navigation-color-darktheme
