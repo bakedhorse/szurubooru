@@ -1,14 +1,18 @@
-"""
+'''
 add_description_to_post
-Revision ID: 58bba7e0c554
-Created at: 2021-01-30 18:06:11.511449
-"""
+
+Revision ID: 850d9f360f31
+Created at: 2024-11-04 21:16:41.921161
+'''
+
 import sqlalchemy as sa
 from alembic import op
-revision = "58bba7e0c554"
-down_revision = "adcd63ff76a2"
+
+revision = '850d9f360f31'
+down_revision = '9ba5e3a6ee7c'
 branch_labels = None
 depends_on = None
+
 def upgrade():
     op.add_column(
         "post", sa.Column("description", sa.UnicodeText(), nullable=True)
