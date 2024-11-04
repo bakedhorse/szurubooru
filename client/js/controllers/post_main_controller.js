@@ -53,7 +53,12 @@ class PostMainController extends BasePostController {
                     parameters.query.split(" ").forEach((item) => {
                         const found = item.match(/^pool:([0-9]+)/i);
                         if (found) {
-                            activePool = parseInt(found[1]);
+                            const foundPool = parseInt(found[1]);
+                            poolPostsNearby.forEach((nearbyPosts) => {
+                                if (nearbyPosts.pool.id == foundPool) {
+                                    activePool = nearbyPosts
+                                }
+                            });
                         }
                     });
                 }
@@ -64,12 +69,12 @@ class PostMainController extends BasePostController {
                     poolPostsAround: poolPostsAroundResponse,
                     activePool: activePool,
                     editMode: editMode,
-                    prevPostId: aroundResponse.prev
-                        ? aroundResponse.prev.id
-                        : null,
-                    nextPostId: aroundResponse.next
-                        ? aroundResponse.next.id
-                        : null,
+                    prevPostId: activePool && poolPostsAroundResponse.length > 0
+                        ? (poolPostsAroundResponse[0].previousPost ? poolPostsAroundResponse[0].previousPost.id : null)
+                        : (aroundResponse.prev ? aroundResponse.prev.id : null),
+                    nextPostId: activePool && poolPostsAroundResponse.length > 0
+                        ? (poolPostsAroundResponse[0].nextPost ? poolPostsAroundResponse[0].nextPost.id : null)
+                        : (aroundResponse.next ? aroundResponse.next.id : null),
                     canEditPosts: api.hasPrivilege("posts:edit"),
                     canDeletePosts: api.hasPrivilege("posts:delete"),
                     canFeaturePosts: api.hasPrivilege("posts:feature"),

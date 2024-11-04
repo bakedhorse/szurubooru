@@ -26,7 +26,8 @@ class PoolNavigatorControl extends events.EventTarget {
                 prevPost: poolPostAround.prevPost,
                 nextPost: poolPostAround.nextPost,
                 lastPost: poolPostAround.lastPost,
-                isActivePool: isActivePool
+                isActivePool: isActivePool,
+                getPrettyName: misc.getPrettyName,
             })
         );
     }
