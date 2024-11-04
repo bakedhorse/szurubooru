@@ -54,7 +54,7 @@ class PostMainController extends BasePostController {
                         const found = item.match(/^pool:([0-9]+)/i);
                         if (found) {
                             const foundPool = parseInt(found[1]);
-                            poolPostsNearby.forEach((nearbyPosts) => {
+                            poolPostsAroundResponse.forEach((nearbyPosts) => {
                                 if (nearbyPosts.pool.id == foundPool) {
                                     activePool = nearbyPosts
                                 }
