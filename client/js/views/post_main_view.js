@@ -71,6 +71,8 @@ class PostMainView {
                         ctx.getPostUrl(ctx.prevPostId, ctx.parameters)
                     );
                 }
+            } else {
+                console.log("No Previous Image")
             }
         };
 
@@ -85,6 +87,8 @@ class PostMainView {
                         ctx.getPostUrl(ctx.nextPostId, ctx.parameters)
                     );
                 }
+            } else {
+                console.log("No Next Image")
             }
         };
 
