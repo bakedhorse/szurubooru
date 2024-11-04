@@ -88,6 +88,9 @@ def create_post(
     posts.update_post_flags(post, flags)
     if ctx.has_file("thumbnail"):
         posts.update_post_thumbnail(post, ctx.get_file("thumbnail"))
+    if ctx.has_param("description"):
+        auth.verify_privilege(ctx.user, "posts:edit:description")
+        posts.update_post_description(post, ctx.get_param_as_string("description"))
     ctx.session.add(post)
     ctx.session.flush()
     create_snapshots_for_post(post, new_tags, None if anonymous else ctx.user)
@@ -165,6 +168,9 @@ def update_post(ctx: rest.Context, params: Dict[str, str]) -> rest.Response:
     if ctx.has_file("thumbnail"):
         auth.verify_privilege(ctx.user, "posts:edit:thumbnail")
         posts.update_post_thumbnail(post, ctx.get_file("thumbnail"))
+    if ctx.has_param("description"):
+        auth.verify_privilege(ctx.user, "posts:edit:description")
+        posts.update_post_description(post, ctx.get_param_as_string("description"))
     post.last_edit_time = datetime.utcnow()
     ctx.session.flush()
     snapshots.modify(post, ctx.user)

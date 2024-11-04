@@ -4,6 +4,7 @@ const iosCorrectedInnerHeight = require("ios-inner-height");
 const router = require("../router.js");
 const views = require("../util/views.js");
 const uri = require("../util/uri.js");
+const misc = require("../util/misc.js");
 const keyboard = require("../util/keyboard.js");
 const Touch = require("../util/touch.js");
 const PostContentControl = require("../controls/post_content_control.js");
@@ -59,6 +60,7 @@ class PostMainView {
         this._installCommentForm();
         this._installComments(ctx.post.comments);
         this._installPoolNavigators(ctx.poolPostsAround, ctx.activePool);
+        this.postDescription = document.getElementById("post-description");
 
         const showPreviousImage = () => {
             if (ctx.prevPostId) {
