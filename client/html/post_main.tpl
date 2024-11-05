@@ -57,12 +57,13 @@
         <% } %>
 
         <% if (ctx.editMode && ctx.canEditPostDescription) { %>
-            <h2>Description</h2>
+            <h3 style="margin: .2em 0 .2em 0;margin-top: .2em;">Description</h3>
             <%= ctx.makeTextarea({
                 id: 'post-description',
                 value: ctx.post.description,
             }) %>
         <% } else if (ctx.post.description != undefined) { %>
+            <h3 style="margin: .2em 0 .2em 0;margin-top: .2em;">Description</h3>
             <div class='description-container'>
                 <%= ctx.makeMarkdown(ctx.post.description) %>
             </div>
